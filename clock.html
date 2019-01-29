@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="./Web768.png">
+
+  <link rel="apple-touch-icon" href="./Web768.png">
+  <meta name="apple-mobile-web-app-title" content="PhotoWeather">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script>JSCLASS_PATH = './JS.Class 4.0.5/src'</script>
+  <script src="./JS.Class 4.0.5/src/loader-browser.js"></script>
+  <script src="./JS.Class 4.0.5/src/core.js"></script>
+  <script src="./weather-master/lib/weather.js"></script>
+  <script src="./flickr-master/source/flickr.js"></script>
+  <script src="./flickr-master/source/jsonp.js"></script>
+  <script src="./flickr-master/source/photo.js"></script>
+
+  <script language="Javascript">
+    var Now = new Date(Date.now());
+    //var Now = new Date("1/4/2019 10:00:55");
+    var Zip = "63109";
+    var FlickrUsername = "aidanblack";
+    var ForecastList;
+    var Days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var PictureList;
+
+    var clockTimer;
+    var weatherTimer;
+    var pictureTimer;
+    var pictureDiv = 1;
+
+    function SetClock() {
+      var Seconds = Now.getSeconds();
+      var Minutes = Now.getMinutes() + Seconds / 60;
+      var Hours = Now.getHours() + Minutes / 60;
+
+      document.getElementById("seconds").setAttribute('transform', 'rotate(' + (Seconds * 6) + ')');
+      document.getElementById("minutes").setAttribute('transform', 'rotate(' + (Minutes * 6) + ')');
+      document.getElementById("hours").setAttribute('transform', 'rotate(' + (Hours * 30) + ')');
+      clockTimer = setTimeout(SetClock, 60000);
+    }
+
+    function SetWeather() {
+      Weather.getCurrent(Zip, function (current) {
+        document.getElementById("currentTemp").textContent = Math.round(Weather.kelvinToFahrenheit(current.data.main.temp)) + String.fromCharCode(176);
+        document.getElementById("currentCity").textContent = current.data.name;
+        document.getElementById("currentIcon").setAttributeNS("http://www.w3.org/1999/xlink", "href", "./weather-icons/" + current.data.weather[0].icon + ".png");
+      });
+      Weather.getForecast(Zip, function (forecast) {
+        document.getElementById("highTemp").textContent = Math.round(Weather.kelvinToFahrenheit(forecast.high())) + String.fromCharCode(176);
+        document.getElementById("lowTemp").textContent = Math.round(Weather.kelvinToFahrenheit(forecast.low())) + String.fromCharCode(176);
+        ForecastList = forecast.data.list;
+        labelId = 1;
+        iconId = 1;
+
+        ForecastList.forEach((conditions, index) => {
+          if (index > 0) {
+            document.getElementById("temp" + index).setAttribute("y2", Math.round(Weather.kelvinToFahrenheit(conditions.main.temp)));
+          }
+          if (index < 39) {
+            document.getElementById("temp" + (index + 1)).setAttribute("y1", Math.round(Weather.kelvinToFahrenheit(conditions.main.temp)));
+          }
+          var conditionsDate = new Date(conditions.dt_txt.replace(/-/g, "/"));
+          if (conditionsDate.getHours() - 6 == 0) {
+            var conditionsDateLabel = document.getElementById("forecastLabel" + labelId);
+            conditionsDateLabel.setAttribute("x", 38 + (index * 18.6));
+            conditionsDateLabel.setAttribute("y", "43");
+            conditionsDateLabel.textContent = Days[conditionsDate.getDay()];
+            labelId++;
+          }
+          if (conditionsDate.getHours() - 6 == 12) {
+            var conditionsIcon = document.getElementById("forecastIcon" + iconId);
+            conditionsIcon.setAttribute("x", 25 + (index * 14));
+            conditionsIcon.setAttribute("y", "22");
+            conditionsIcon.setAttribute("width", "15");
+            conditionsIcon.setAttribute("height", "15");
+            conditionsIcon.setAttributeNS("http://www.w3.org/1999/xlink", "href", "./weather-icons/" + conditions.weather[0].icon + ".png");
+            iconId++;
+          }
+        });
+      });
+      weatherTimer = setTimeout(SetWeather, 300000);
+    }
+
+    function RotatePicture() {
+      var photoCount = PictureList.length;
+      var photoId = Math.floor(Math.random() * Math.floor(photoCount));
+      var photoUri = PictureList[photoId].constructImageURI("b");
+      document.getElementById("picture" + pictureDiv).style.backgroundImage = "url(" + photoUri + ")";
+      if (pictureDiv == 1) {
+        document.getElementById("picture1").classList.replace("hidePicture", "showPicture");
+        document.getElementById("picture2").classList.replace("showPicture", "hidePicture");
+        pictureDiv = 2;
+      }
+      else {
+        document.getElementById("picture2").classList.replace("hidePicture", "showPicture");
+        document.getElementById("picture1").classList.replace("showPicture", "hidePicture");
+        pictureDiv = 1;
+      }
+      pictureTimer = setTimeout(RotatePicture, 30000);
+    }
+
+    function SetAll() {
+      clearTimeout(clockTimer);
+      clearTimeout(weatherTimer);
+      clearTimeout(pictureTimer);
+
+      Weather.setApiKey("a2e011a6ee99d9658fa0e27cb161238d");
+      flickrClient = new Flickr.Client("94b30e6b960f22fb209b947d6145f673");
+      flickrClient.getUserId(FlickrUsername, function (userId) {
+        flickrClient.getPublicPhotos(userId, function (feed) {
+          PictureList = feed;
+          RotatePicture();
+        });
+      });
+      
+      SetClock();
+      SetWeather();
+    }
+
+    function SetPreferences() {
+      document.getElementById("zip").value = Zip;
+      document.getElementById("flickrUser").value = FlickrUsername;
+      document.getElementById("preferences").classList.replace("hidePreferences", "showPreferences");
+    }
+
+    function SavePreferences() {
+      Zip = document.getElementById("zip").value;
+      FlickrUsername = document.getElementById("flickrUser").value;
+      SetAll();
+      document.getElementById("preferences").classList.replace("showPreferences", "hidePreferences");
+    }
+  </script>
+
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    #picture1, #picture2, #preferences {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #333333;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin:0;
+    }
+    .showPicture {
+      transition: 3s;
+      opacity: 1;
+    }
+    .hidePicture {
+      transition: 3s;
+      opacity: 0;
+    }
+    .showPreferences {
+      transition: 0.5s;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    .hidePreferences {
+      transition: 0.5s;
+      opacity: 0;
+      z-index: -1;
+    }
+    #preferences p, .preferenceInput, .preferenceButton {
+      margin: 1%;
+      padding: 1%;
+      font-family: 'Century Gothic', sans-serif;
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+    }
+    #preferences p {
+      color: #FFFFFF;
+    }
+    .preferenceInput {
+      color: #333333;
+    }
+    .preferenceButton {
+      color: #FFFFFF;
+      background-color: #666666;
+      border: none;
+    }
+    #clock {
+      position: fixed;
+      max-height: 40%;
+      max-width: 30%;
+    }
+    #currentWeather {
+      position: fixed;
+      max-height: 25%;
+      max-width: 30%;
+      right: 0%;
+    }
+    #forecastWeather {
+      position: fixed;
+      max-height: 40%;
+      max-width: 100%;
+      bottom: 0%;
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+  </style>
+</head>
+
+<body onload="SetAll()">
+  <div id="picture1" class="showPicture">
+  </div>
+  <div id="picture2" class="hidePicture">
+  </div>
+  <div id="preferences" class="hidePreferences">
+    <p>
+      Weather Zip Code<br />
+      <input id="zip" class="preferenceInput" />
+    </p>
+    <p>
+      Flickr Feed Username<br />
+      <input id="flickrUser" class="preferenceInput" />
+    </p>
+    <p>
+      <button id="savePreferences" class="preferenceButton" onclick="SavePreferences();">Save</button>
+    </p>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" id="clock">
+
+    <circle cx="100" cy="100" r="85" fill="#333333" fill-opacity="0.6" />
+
+    <g font-size="medium" font-family="'Century Gothic', sans-serif" fill="#FFFFFF">
+      <text x="91" y="44">XII</text>
+      <text transform="rotate(30,100,100)" x="98.2" y="44">I</text>
+      <text transform="rotate(60,100,100)" x="96.3" y="44">II</text>
+      <text transform="rotate(90,100,100)" x="94.6" y="44">III</text>
+      <text transform="rotate(120,100,100)" x="92.7" y="44">IIII</text>
+      <text transform="rotate(150,100,100)" x="94.4" y="44">V</text>
+      <text transform="rotate(180,100,100)" x="92.5" y="44">VI</text>
+      <text transform="rotate(210,100,100)" x="90" y="44">VII</text>
+      <text transform="rotate(240,100,100)" x="88" y="44">VIII</text>
+      <text transform="rotate(270,100,100)" x="92.5" y="44">IX</text>
+      <text transform="rotate(300,100,100)" x="95" y="44">X</text>
+      <text transform="rotate(330,100,100)" x="93.5" y="44">XI</text>
+    </g>
+
+    <g style="stroke-width:2;stroke:#FFFFFF">
+      <line x1="100" y1="20.5" x2="100" y2="26" />
+      <line x1="179.5" y1="100" x2="174" y2="100" />
+      <line x1="100" y1="179.5" x2="100" y2="174" />
+      <line x1="20.5" y1="100" x2="26" y2="100" />
+    </g>
+    <g transform="rotate(30,100,100)" style="fill: #CCCCCC; stroke: #CCCCCC">
+      <circle cx="100" cy="22" r="1" />
+      <circle cx="178" cy="100" r="1" />
+      <circle cx="100" cy="178" r="1" />
+      <circle cx="22" cy="100" r="1" />
+    </g>
+    <g transform="rotate(60,100,100)" style="fill: #CCCCCC; stroke: #CCCCCC">
+      <circle cx="100" cy="22" r="1" />
+      <circle cx="178" cy="100" r="1" />
+      <circle cx="100" cy="178" r="1" />
+      <circle cx="22" cy="100" r="1" />
+    </g>
+
+    <g transform="rotate(6,100,100)" style="fill: #999999; stroke: #999999">
+      <g>
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(30,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(60,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+    </g>
+    <g transform="rotate(12,100,100)" style="fill: #999999; stroke: #999999">
+      <g>
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(30,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(60,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+    </g>
+    <g transform="rotate(18,100,100)" style="fill: #999999; stroke: #999999">
+      <g>
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(30,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(60,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+    </g>
+    <g transform="rotate(24,100,100)" style="fill: #999999; stroke: #999999">
+      <g>
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(30,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+      <g transform="rotate(60,100,100)">
+        <circle cx="100" cy="22" r="0.5" />
+        <circle cx="178" cy="100" r="0.5" />
+        <circle cx="100" cy="178" r="0.5" />
+        <circle cx="22" cy="100" r="0.5" />
+      </g>
+    </g>
+
+    <g>
+      <g transform="translate(100,100)">
+        <g id="hours">
+          <line x1="0" y1="0" x2="0" y2="-40" stroke="#CCCCCC" stroke-width="4" stroke-opacity="0.8">
+            <animateTransform attributeName="transform" type="rotate" dur="43200s" values="0;360" repeatCount="indefinite" />
+          </line>
+        </g>
+        <g id="minutes">
+          <line x1="0" y1="0" x2="0" y2="-60" stroke="#CCCCCC" stroke-width="2" stroke-opacity="0.8">
+            <animateTransform attributeName="transform" type="rotate" dur="3600s" values="0;360" repeatCount="indefinite" />
+          </line>
+        </g>
+        <g id="seconds">
+          <line x1="0" y1="0" x2="0" y2="-70" stroke="#CC0000" stroke-width="1" stroke-opacity="0.8">
+            <animateTransform attributeName="transform" type="rotate" dur="60s" values="0;360" repeatDur="indefinite" />
+          </line>
+        </g>
+      </g>
+    </g>
+
+    <circle cx="100" cy="100" r="3" style="fill: #CCCCCC; stroke: #CCCCCC" />
+
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 100" id="currentWeather">
+    <rect x="15" y="15" width="170" height="70" fill="#333333" fill-opacity="0.6" />
+    <g font-family="'Century Gothic', sans-serif" fill="#FFFFFF">
+      <text id="currentTemp" font-size="xx-large" x="25" y="50">0&deg;</text>
+      <image id="currentIcon" x="85" y="15" height="46" width="46" xlink:href="" onclick="SetPreferences();" />
+      <text id="highTemp" font-size="medium" x="150" y="35">0&deg;</text>
+      <text id="lowTemp" font-size="medium" x="150" y="55">0&deg;</text>
+      <text id="currentCity" font-size="small" x="25" y="75"></text>
+    </g>
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 100" id="forecastWeather">
+    <rect x="15" y="15" width="570" height="70" fill="#333333" fill-opacity="0.6" />
+    <g font-family="'Century Gothic', sans-serif" font-size="xx-small" fill="#FFFFFF" transform="scale(0.75,0.75)">
+      <text x="23" y="31">120&deg;</text>
+      <text x="23" y="57">80&deg;</text>
+      <text x="23" y="83">40&deg;</text>
+      <text x="23" y="109">0&deg;</text>
+    </g>
+    <g transform="translate(34,80) scale(1,-0.5)" style="stroke-width:2;stroke:#FFFFFF">
+      <line x1="0" y1="120" x2="546" y2="120" style="stroke-width:0.5;stroke:#999999" />
+      <line x1="0" y1="80" x2="546" y2="80" style="stroke-width:0.5;stroke:#999999" />
+      <line x1="0" y1="40" x2="546" y2="40" style="stroke-width:0.5;stroke:#999999" />
+      <line x1="0" y1="0" x2="546" y2="0" style="stroke-width:0.5;stroke:#999999" />
+
+      <line x1="0" y1="60" x2="14" y2="60" id="temp1" />
+      <line x1="14" y1="60" x2="28" y2="60" id="temp2" />
+      <line x1="28" y1="60" x2="42" y2="60" id="temp3" />
+      <line x1="42" y1="60" x2="56" y2="60" id="temp4" />
+      <line x1="56" y1="60" x2="70" y2="60" id="temp5" />
+      <line x1="70" y1="60" x2="84" y2="60" id="temp6" />
+      <line x1="84" y1="60" x2="98" y2="60" id="temp7" />
+      <line x1="98" y1="60" x2="112" y2="60" id="temp8" />
+
+      <g transform="translate(112,0)">
+        <line x1="0" y1="60" x2="14" y2="60" id="temp9" />
+        <line x1="14" y1="60" x2="28" y2="60" id="temp10" />
+        <line x1="28" y1="60" x2="42" y2="60" id="temp11" />
+        <line x1="42" y1="60" x2="56" y2="60" id="temp12" />
+        <line x1="56" y1="60" x2="70" y2="60" id="temp13" />
+        <line x1="70" y1="60" x2="84" y2="60" id="temp14" />
+        <line x1="84" y1="60" x2="98" y2="60" id="temp15" />
+        <line x1="98" y1="60" x2="112" y2="60" id="temp16" />
+      </g>
+
+      <g transform="translate(224,0)">
+        <line x1="0" y1="60" x2="14" y2="60" id="temp17" />
+        <line x1="14" y1="60" x2="28" y2="60" id="temp18" />
+        <line x1="28" y1="60" x2="42" y2="60" id="temp19" />
+        <line x1="42" y1="60" x2="56" y2="60" id="temp20" />
+        <line x1="56" y1="60" x2="70" y2="60" id="temp21" />
+        <line x1="70" y1="60" x2="84" y2="60" id="temp22" />
+        <line x1="84" y1="60" x2="98" y2="60" id="temp23" />
+        <line x1="98" y1="60" x2="112" y2="60" id="temp24" />
+      </g>
+
+      <g transform="translate(336,0)">
+        <line x1="0" y1="60" x2="14" y2="60" id="temp25" />
+        <line x1="14" y1="60" x2="28" y2="60" id="temp26" />
+        <line x1="28" y1="60" x2="42" y2="60" id="temp27" />
+        <line x1="42" y1="60" x2="56" y2="60" id="temp28" />
+        <line x1="56" y1="60" x2="70" y2="60" id="temp29" />
+        <line x1="70" y1="60" x2="84" y2="60" id="temp30" />
+        <line x1="84" y1="60" x2="98" y2="60" id="temp31" />
+        <line x1="98" y1="60" x2="112" y2="60" id="temp32" />
+      </g>
+
+      <g transform="translate(448,0)">
+        <line x1="0" y1="60" x2="14" y2="60" id="temp33" />
+        <line x1="14" y1="60" x2="28" y2="60" id="temp34" />
+        <line x1="28" y1="60" x2="42" y2="60" id="temp35" />
+        <line x1="42" y1="60" x2="56" y2="60" id="temp36" />
+        <line x1="56" y1="60" x2="70" y2="60" id="temp37" />
+        <line x1="70" y1="60" x2="84" y2="60" id="temp38" />
+        <line x1="84" y1="60" x2="98" y2="60" id="temp39" />
+        <!--line x1="98" y1="60" x2="112" y2="60" id="temp40" /-->
+      </g>
+    </g>
+
+    <g font-family="'Century Gothic', sans-serif" font-size="xx-small" fill="#FFFFFF" transform="scale(0.75,0.75)">
+      <text id="forecastLabel1"></text>
+      <text id="forecastLabel2"></text>
+      <text id="forecastLabel3"></text>
+      <text id="forecastLabel4"></text>
+      <text id="forecastLabel5"></text>
+    </g>
+    <image id="forecastIcon1"></image>
+    <image id="forecastIcon2"></image>
+    <image id="forecastIcon3"></image>
+    <image id="forecastIcon4"></image>
+    <image id="forecastIcon5"></image>
+  </svg>
+
+</body>
