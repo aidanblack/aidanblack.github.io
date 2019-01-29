@@ -22,8 +22,8 @@
   <script language="Javascript">
     var Now = new Date(Date.now());
     //var Now = new Date("1/4/2019 10:00:55");
-    var Zip = "63109";
-    var FlickrUsername = "aidanblack";
+    var Zip = "";
+    var FlickrUsername = "";
     var ForecastList;
     var Days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     var PictureList;
@@ -109,17 +109,28 @@
       clearTimeout(weatherTimer);
       clearTimeout(pictureTimer);
 
-      Weather.setApiKey("a2e011a6ee99d9658fa0e27cb161238d");
-      flickrClient = new Flickr.Client("94b30e6b960f22fb209b947d6145f673");
-      flickrClient.getUserId(FlickrUsername, function (userId) {
-        flickrClient.getPublicPhotos(userId, function (feed) {
-          PictureList = feed;
-          RotatePicture();
-        });
-      });
-      
       SetClock();
-      SetWeather();
+
+      if (Zip != "") {
+        Weather.setApiKey("a2e011a6ee99d9658fa0e27cb161238d");
+        SetWeather();
+      }
+      else {
+        SetPreferences();
+      }
+
+      if (FlickrUsername != "") {
+        flickrClient = new Flickr.Client("94b30e6b960f22fb209b947d6145f673");
+        flickrClient.getUserId(FlickrUsername, function (userId) {
+          flickrClient.getPublicPhotos(userId, function (feed) {
+            PictureList = feed;
+            RotatePicture();
+          });
+        });
+      }
+      else {
+        SetPreferences();
+      }
     }
 
     function SetPreferences() {
@@ -226,7 +237,7 @@
       <input id="flickrUser" class="preferenceInput" />
     </p>
     <p>
-      <button id="savePreferences" class="preferenceButton" onclick="SavePreferences();">Save</button>
+      <button id="savePreferences" class="preferenceButton" onclick="SavePreferences();">Update</button>
     </p>
   </div>
 
