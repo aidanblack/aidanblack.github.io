@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <head>
+  <title>PhotoWeather</title>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +28,7 @@
     var FlickrUsername = "";
     var ForecastList;
     var Days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var Months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Nov","Dec"];
     var PictureList;
 
     var clockTimer;
@@ -37,7 +40,9 @@
       var Seconds = Now.getSeconds();
       var Minutes = Now.getMinutes() + Seconds / 60;
       var Hours = Now.getHours() + Minutes / 60;
+      var DateText = Months[Now.getMonth()] + " " + Now.getDate();
 
+      document.getElementById("dateBox").textContent = DateText;
       document.getElementById("seconds").setAttribute('transform', 'rotate(' + (Seconds * 6) + ')');
       document.getElementById("minutes").setAttribute('transform', 'rotate(' + (Minutes * 6) + ')');
       document.getElementById("hours").setAttribute('transform', 'rotate(' + (Hours * 30) + ')');
@@ -79,6 +84,7 @@
             conditionsIcon.setAttribute("width", "15");
             conditionsIcon.setAttribute("height", "15");
             conditionsIcon.setAttributeNS("http://www.w3.org/1999/xlink", "href", "./weather-icons/" + conditions.weather[0].icon + ".png");
+            conditionsIcon.getElementsByTagName("title")[0].textContent = Math.round(Weather.kelvinToFahrenheit(conditions.main.temp));
             iconId++;
           }
         });
@@ -90,15 +96,29 @@
       var photoCount = PictureList.length;
       var photoId = Math.floor(Math.random() * Math.floor(photoCount));
       var photoUri = PictureList[photoId].constructImageURI("b");
-      document.getElementById("picture" + pictureDiv).style.backgroundImage = "url(" + photoUri + ")";
+      var divToChange = document.getElementById("picture" + pictureDiv);
+      divToChange.style.backgroundImage = "url(" + photoUri + ")";
+      var replaceExists = (typeof divToChange.classList.replace) === "function";
       if (pictureDiv == 1) {
-        document.getElementById("picture1").classList.replace("hidePicture", "showPicture");
-        document.getElementById("picture2").classList.replace("showPicture", "hidePicture");
+        if(replaceExists) {
+          document.getElementById("picture1").classList.replace("hidePicture", "showPicture");
+          document.getElementById("picture2").classList.replace("showPicture", "hidePicture");
+        }
+        else {
+          document.getElementById("picture1").style.opacity = 1;
+          document.getElementById("picture2").style.opacity = 0;
+        }
         pictureDiv = 2;
       }
       else {
-        document.getElementById("picture2").classList.replace("hidePicture", "showPicture");
-        document.getElementById("picture1").classList.replace("showPicture", "hidePicture");
+        if(replaceExists) {
+          document.getElementById("picture2").classList.replace("hidePicture", "showPicture");
+          document.getElementById("picture1").classList.replace("showPicture", "hidePicture");
+        }
+        else {
+          document.getElementById("picture2").style.opacity = 1;
+          document.getElementById("picture1").style.opacity = 0;
+        }
         pictureDiv = 1;
       }
       pictureTimer = setTimeout(RotatePicture, 30000);
@@ -110,6 +130,13 @@
       clearTimeout(pictureTimer);
 
       SetClock();
+
+      if (typeof (Storage) !== "undefined") {
+        if(localStorage.zip)
+          Zip = localStorage.zip;
+        if(localStorage.flickrUsername)
+          FlickrUsername = localStorage.flickrUsername;
+      }
 
       if (Zip != "") {
         Weather.setApiKey("a2e011a6ee99d9658fa0e27cb161238d");
@@ -136,14 +163,34 @@
     function SetPreferences() {
       document.getElementById("zip").value = Zip;
       document.getElementById("flickrUser").value = FlickrUsername;
-      document.getElementById("preferences").classList.replace("hidePreferences", "showPreferences");
+      var preferencesDiv = document.getElementById("preferences");
+      var replaceExists = (typeof preferencesDiv.classList.replace) === "function";
+      if(replaceExists) {
+        preferencesDiv.classList.replace("hidePreferences", "showPreferences");
+      }
+      else {
+        preferencesDiv.style.opacity = 1;
+        preferencesDiv.style.zIndex = 1;
+      }
     }
 
     function SavePreferences() {
       Zip = document.getElementById("zip").value;
       FlickrUsername = document.getElementById("flickrUser").value;
+      if (typeof (Storage) !== "undefined") {
+        localStorage.zip = Zip;
+        localStorage.flickrUsername = FlickrUsername;
+      }
       SetAll();
-      document.getElementById("preferences").classList.replace("showPreferences", "hidePreferences");
+      var preferencesDiv = document.getElementById("preferences");
+      var replaceExists = (typeof preferencesDiv.classList.replace) === "function";
+      if(replaceExists) {
+        preferencesDiv.classList.replace("showPreferences", "hidePreferences");
+      }
+      else {
+        preferencesDiv.style.opacity = 0;
+        preferencesDiv.style.zIndex = -1;
+      }
     }
   </script>
 
@@ -161,6 +208,9 @@
       background-size: cover;
       background-position: center;
       margin:0;
+    }
+    #preferences {
+      padding-top: 5%;
     }
     .showPicture {
       transition: 3s;
@@ -244,12 +294,13 @@
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" id="clock">
 
     <circle cx="100" cy="100" r="85" fill="#333333" fill-opacity="0.6" />
+    <!--rect x="15" y="15" width="170" height="170" fill="#333333" fill-opacity="0.6" stroke="#333333" stroke-width="10" stroke-opacity="0.4" /-->
 
     <g font-size="medium" font-family="'Century Gothic', sans-serif" fill="#FFFFFF">
       <text x="91" y="44">XII</text>
       <text transform="rotate(30,100,100)" x="98.2" y="44">I</text>
       <text transform="rotate(60,100,100)" x="96.3" y="44">II</text>
-      <text transform="rotate(90,100,100)" x="94.6" y="44">III</text>
+      <!--text transform="rotate(90,100,100)" x="94.6" y="44">III</text-->
       <text transform="rotate(120,100,100)" x="92.7" y="44">IIII</text>
       <text transform="rotate(150,100,100)" x="94.4" y="44">V</text>
       <text transform="rotate(180,100,100)" x="92.5" y="44">VI</text>
@@ -259,12 +310,13 @@
       <text transform="rotate(300,100,100)" x="95" y="44">X</text>
       <text transform="rotate(330,100,100)" x="93.5" y="44">XI</text>
     </g>
+    <text id="dateBox" x="130" y="104.5" font-size="small" font-family="'Century Gothic', sans-serif" fill="#FFFFFF"></text>
 
     <g style="stroke-width:2;stroke:#FFFFFF">
-      <line x1="100" y1="20.5" x2="100" y2="26" />
-      <line x1="179.5" y1="100" x2="174" y2="100" />
-      <line x1="100" y1="179.5" x2="100" y2="174" />
-      <line x1="20.5" y1="100" x2="26" y2="100" />
+      <line x1="100" y1="20.5" x2="100" y2="26.5" />
+      <line x1="179.5" y1="100" x2="173.5" y2="100" />
+      <line x1="100" y1="179.5" x2="100" y2="173.5" />
+      <line x1="20.5" y1="100" x2="26.5" y2="100" />
     </g>
     <g transform="rotate(30,100,100)" style="fill: #CCCCCC; stroke: #CCCCCC">
       <circle cx="100" cy="22" r="1" />
@@ -464,17 +516,17 @@
     </g>
 
     <g font-family="'Century Gothic', sans-serif" font-size="xx-small" fill="#FFFFFF" transform="scale(0.75,0.75)">
-      <text id="forecastLabel1"></text>
-      <text id="forecastLabel2"></text>
-      <text id="forecastLabel3"></text>
-      <text id="forecastLabel4"></text>
-      <text id="forecastLabel5"></text>
+      <text id="forecastLabel1"><title></title></text>
+      <text id="forecastLabel2"><title></title></text>
+      <text id="forecastLabel3"><title></title></text>
+      <text id="forecastLabel4"><title></title></text>
+      <text id="forecastLabel5"><title></title></text>
     </g>
-    <image id="forecastIcon1"></image>
-    <image id="forecastIcon2"></image>
-    <image id="forecastIcon3"></image>
-    <image id="forecastIcon4"></image>
-    <image id="forecastIcon5"></image>
+    <image id="forecastIcon1"><title></title></image>
+    <image id="forecastIcon2"><title></title></image>
+    <image id="forecastIcon3"><title></title></image>
+    <image id="forecastIcon4"><title></title></image>
+    <image id="forecastIcon5"><title></title></image>
   </svg>
 
 </body>
