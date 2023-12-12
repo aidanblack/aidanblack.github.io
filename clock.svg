@@ -20,13 +20,13 @@
     <text y="-55">12</text>
   </g>
   <g>
-    <rect width="60" height="20" x="110" y="90" style="fill: #333" />
+    <rect width="58" height="18" x="111" y="91" style="fill: #333" stroke="#333" stroke-width="4" stroke-linejoin="round" />
     <text id="dateBox" x="115" y="106" style="fill: #CCC;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif" font-weight="bolder"
       fill="black">date</text>
   </g>
 
-  <g style="stroke-width:2;stroke:black">
+  <g style="stroke-width:2;stroke:black;stroke-linecap:round">
     <line x1="100" y1="20.5" x2="100" y2="26.5" />
     <line x1="179.5" y1="100" x2="173.5" y2="100" />
     <line x1="100" y1="179.5" x2="100" y2="173.5" />
@@ -129,19 +129,19 @@
   <g>
     <g transform="translate(100,100)">
       <g id="hours">
-        <line x1="0" y1="0" x2="0" y2="-40" stroke="black" stroke-width="5" stroke-opacity="0.7">
+        <line x1="0" y1="0" x2="0" y2="-40" stroke="black" stroke-linecap="round" stroke-width="5" stroke-opacity="0.7">
           <animateTransform attributeName="transform" type="rotate" dur="43200s" values="0;360"
             repeatCount="indefinite" />
         </line>
       </g>
       <g id="minutes">
-        <line x1="0" y1="0" x2="0" y2="-60" stroke="black" stroke-width="4" stroke-opacity="0.7">
+        <line x1="0" y1="0" x2="0" y2="-60" stroke="black" stroke-linecap="round" stroke-width="4" stroke-opacity="0.7">
           <animateTransform attributeName="transform" type="rotate" dur="3600s" values="0;360"
             repeatCount="indefinite" />
         </line>
       </g>
       <g id="seconds">
-        <line x1="0" y1="0" x2="0" y2="-70" stroke="red" stroke-width="2" stroke-opacity="0.7">
+        <line x1="0" y1="0" x2="0" y2="-70" stroke="red" stroke-linecap="round" stroke-width="2" stroke-opacity="0.7">
           <animateTransform attributeName="transform" type="rotate" dur="60s" values="0;360" repeatDur="indefinite" />
         </line>
       </g>
