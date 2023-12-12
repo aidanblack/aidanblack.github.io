@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" id="clock"
-  style="position: relative;max-height: 100%;max-width: 100%;left: 0%;top: 0%;background-color:#112233;">
+  style="position: relative;max-height: 100%;max-width: 100%;left: 0%;top: 0%;background-color:#234;">
 
   <circle cx="100" cy="100" r="90" fill="white" />
-  <circle cx="100" cy="100" r="90" fill="#333333" fill-opacity="0.1" stroke="#333333" stroke-width="6"
+  <circle cx="100" cy="100" r="90" fill="#666" fill-opacity="0.1" stroke="#333333" stroke-width="6"
     stroke-opacity="0.4" />
 
-  <g font-size="17" font-family="'Century Gothic', sans-serif" font-weight="bolder" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
+  <g font-size="17" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif" font-weight="bolder" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
     <g transform="rotate(30)" ><text y="-55">1</text></g>
     <g transform="rotate(60)" ><text y="-55">2</text></g>
     <!-- <g transform="rotate(90)" ><text y="-55">3</text></g> -->
@@ -20,8 +20,9 @@
     <text y="-55">12</text>
   </g>
   <g>
-    <text id="dateBox" x="118" y="106" style="background: #999; padding: 3px; border: 1px solid black;"
-      font-size="16" font-family="'Century Gothic', sans-serif" font-weight="bolder"
+    <rect width="60" height="20" x="110" y="90" style="fill: #333" />
+    <text id="dateBox" x="115" y="106" style="fill: #CCC;"
+      font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif" font-weight="bolder"
       fill="black">date</text>
   </g>
 
