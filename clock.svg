@@ -20,8 +20,8 @@
     <text y="-55">12</text>
   </g>
   <g>
-    <rect width="58" height="18" x="111" y="91" style="fill: #333" stroke="#333" stroke-width="4" stroke-linejoin="round" />
-    <text id="dateBox" x="115" y="106" style="fill: #CCC;"
+    <rect width="58" height="18" x="111" y="91" style="fill: #666" stroke="#666" stroke-width="4" stroke-linejoin="round" />
+    <text id="dateBox" x="115" y="106" style="fill: #DDD;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
       fill="black">date</text>
   </g>
