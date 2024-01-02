@@ -21,9 +21,12 @@
   </g>
   <g>
     <rect width="58" height="18" x="111" y="91" style="fill: #666" stroke="#666" stroke-width="4" stroke-linejoin="round" />
-    <text id="dateBox" x="115" y="106" style="fill: #DDD;"
+    <text id="monthBox" x="113" y="105" style="fill: #DDD;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
-      fill="black">date</text>
+      fill="black">Mmm</text>
+    <text id="dateBox" x="151" y="105" style="fill: #DDD;"
+      font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
+      fill="black">88</text>
   </g>
 
   <g style="stroke-width:2;stroke:black;stroke-linecap:round">
@@ -157,8 +160,10 @@
       var Minutes = Now.getMinutes() + Seconds / 60;
       var Hours = Now.getHours() + Minutes / 60;
       var options = { month: 'short' };
-      var DateText = Now.toLocaleDateString(undefined, options) + " " + Now.getDate();
+      var MonthText = Now.toLocaleDateString(undefined, options);
+      var DateText = Now.getDate();
 
+      document.getElementById("monthBox").textContent = MonthText;
       document.getElementById("dateBox").textContent = DateText;
       document.getElementById("seconds").setAttribute("transform", "rotate(" + Seconds * 6 + ")");
       document.getElementById("minutes").setAttribute("transform", "rotate(" + Minutes * 6 + ")");
