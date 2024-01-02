@@ -21,7 +21,7 @@
   </g>
   <g>
     <rect width="58" height="18" x="111" y="91" style="fill: #666" stroke="#666" stroke-width="4" stroke-linejoin="round" />
-    <text id="monthBox" x="113" y="105" style="fill: #DDD;"
+    <text id="monthBox" x="149" y="105" text-anchor="end" style="fill: #DDD;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
       fill="black">Mmm</text>
     <text id="dateBox" x="151" y="105" style="fill: #DDD;"
