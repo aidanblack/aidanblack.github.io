@@ -16,8 +16,8 @@
     </filter>
   </defs>
 
-  <circle filter="url(#raise)" cx="100" cy="100" r="90" fill="#999" stroke="#666" stroke-width="3.5" />
-  <circle filter="url(#raise3)" cx="100" cy="100" r="85" fill="white" />
+  <circle filter="url(#raise)" cx="100" cy="100" r="92" fill="#999" stroke="#666" stroke-width="3.5" />
+  <circle filter="url(#raise3)" cx="100" cy="100" r="87" fill="white" />
 
   <g filter="url(#raise)" font-size="17" font-family="'Gill Sans MT', 'Century Gothic', sans-serif" font-weight="" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
     <g transform="rotate(30)" ><text y="-55">1</text></g>
