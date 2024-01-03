@@ -1,11 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" id="clock"
   style="position: relative;max-height: 100%;max-width: 100%;left: 0%;top: 0%;background-color:#234;">
 
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" />
+    </filter>
+    <filter id="raise">
+      <feDropShadow dx="0.3" dy="0.3" stdDeviation="0.5" />
+    </filter>
+    <filter id="raise2">
+      <feDropShadow dx="0" dy="0" stdDeviation="0.5" />
+    </filter>
+  </defs>
+
   <circle cx="100" cy="100" r="90" fill="white" />
-  <circle cx="100" cy="100" r="90" fill="#666" fill-opacity="0.1" stroke="#333333" stroke-width="6"
+  <circle filter="url(#raise)" cx="100" cy="100" r="90" fill="#666" fill-opacity="0.1" stroke="#333333" stroke-width="6"
     stroke-opacity="0.4" />
 
-  <g font-size="17" font-family="'Gill Sans MT', 'Century Gothic', sans-serif" font-weight="bolder" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
+  <g filter="url(#raise)" font-size="17" font-family="'Gill Sans MT', 'Century Gothic', sans-serif" font-weight="" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
     <g transform="rotate(30)" ><text y="-55">1</text></g>
     <g transform="rotate(60)" ><text y="-55">2</text></g>
     <!-- <g transform="rotate(90)" ><text y="-55">3</text></g> -->
@@ -19,16 +31,17 @@
     <g transform="rotate(330)"><text y="-55">11</text></g>
     <text y="-55">12</text>
   </g>
-  <g>
-    <rect width="50" height="18" x="119" y="91" style="fill: #BBB" stroke="#BBB" stroke-width="4" stroke-linejoin="round" />
-    <text id="monthBox" x="149" y="105" text-anchor="end" style="fill: #222;"
+  <g filter="url(#raise2)">
+    <rect width="50" height="18" x="119" y="91" style="fill: #AAA" stroke="#AAA" stroke-width="2" stroke-linejoin="round" />
+    <text filter="url(#raise)" id="monthBox" x="149" y="105" text-anchor="end" style="fill: #FFF;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
       fill="black">Nov</text>
-    <text id="dateBox" x="151" y="105" style="fill: #222;"
+    <text filter="url(#raise)" id="dateBox" x="151" y="105" style="fill: #FFF;"
       font-size="16" font-family="'Gill Sans MT Light', 'Century Gothic', sans-serif"
       fill="black">28</text>
   </g>
 
+<g filter="url(#raise)">
   <g style="stroke-width:2;stroke:black;stroke-linecap:round">
     <line x1="100" y1="20.5" x2="100" y2="26.5" />
     <line x1="179.5" y1="100" x2="173.5" y2="100" />
@@ -128,8 +141,9 @@
       <circle cx="22" cy="100" r="0.5" />
     </g>
   </g>
+  </g>
 
-  <g>
+  <g filter="url(#shadow)">
     <g transform="translate(100,100)">
       <g id="hours">
         <line x1="0" y1="0" x2="0" y2="-40" stroke="black" stroke-linecap="round" stroke-width="5" stroke-opacity="0.8">
