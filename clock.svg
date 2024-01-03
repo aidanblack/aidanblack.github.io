@@ -36,10 +36,10 @@
   <g filter="url(#raise2)">
     <rect width="50" height="18" x="119" y="91" style="fill: #AAA" stroke="#AAA" stroke-width="2" stroke-linejoin="round" />
     <text filter="url(#raise)" id="monthBox" x="149" y="105" text-anchor="end" style="fill: #FFF;"
-      font-size="16" font-family="'Gill Sans MT Light', 'Gill Sans Light', 'Century Gothic', sans-serif"
+      font-size="16" font-family="'Gill Sans MT Light', 'Gill Sans', 'Century Gothic', sans-serif"
       fill="black">Nov</text>
     <text filter="url(#raise)" id="dateBox" x="151" y="105" style="fill: #FFF;"
-      font-size="16" font-family="'Gill Sans MT Light', 'Gill Sans Light', 'Century Gothic', sans-serif"
+      font-size="16" font-family="'Gill Sans MT Light', 'Gill Sans', 'Century Gothic', sans-serif"
       fill="black">28</text>
   </g>
 
