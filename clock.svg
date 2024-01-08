@@ -14,8 +14,21 @@
     <filter id="raise3">
       <feDropShadow dx="-0.3" dy="-0.3" stdDeviation="0.5" />
     </filter>
+    <filter id="light">
+      <!--Blur effect-->
+      <feGaussianBlur stdDeviation="3" result="blur4" />
+      <!--Lighting effect-->
+      <feSpecularLighting result="spec4" in="blur4" specularExponent="20" lighting-color="#444">
+      <!--Light source effect-->
+      <fePointLight x="75" y="75" z="150">
+      </fePointLight>
+      </feSpecularLighting>
+      <!--Composition of inputs-->
+      <feComposite in="SourceGraphic" in2="spec4" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+    </filter>
   </defs>
 
+<g filter="url(#light)">
   <circle filter="url(#raise)" cx="100" cy="100" r="92" fill="#999" stroke="#666" stroke-width="3.5" />
   <circle filter="url(#raise3)" cx="100" cy="100" r="87" fill="white" />
 
@@ -168,6 +181,7 @@
   </g>
 
   <circle cx="100" cy="100" r="4" style="fill:black; stroke:black" />
+  </g>
 
   <script>
     // <![CDATA[
