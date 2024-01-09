@@ -163,25 +163,28 @@
 
   <g filter="url(#shadow)">
     <rect x="0" y="0" width="200" height="200" fill="none" stroke="none" />
-      <g transform="translate(100,100)">
-        <g id="hours">
-          <line x1="0" y1="0" x2="0" y2="-40" stroke="black"
-             stroke-linecap="round" stroke-width="5" stroke-opacity="0.9" />
-          <animateTransform attributeName="transform" type="rotate" dur="43200s" values="0;360"
-            repeatCount="indefinite" />
-        </g>
-        <g id="minutes">
-          <line x1="0" y1="0" x2="0" y2="-60" stroke="#060608"
-            stroke-linecap="round" stroke-width="4" stroke-opacity="0.9" />
-          <animateTransform attributeName="transform" type="rotate" dur="3600s" values="0;360"
-            repeatCount="indefinite" />
-        </g>
-        <g id="seconds">
-          <line x1="0" y1="0" x2="0" y2="-70" stroke="red"
-            stroke-linecap="round" stroke-width="2" stroke-opacity="0.9" />
-            <animateTransform attributeName="transform" type="rotate" dur="60s" values="0;360" repeatDur="indefinite" />
-        </g>
+    <g transform="translate(100,100)">
+      <g id="hours">
+        <line x1="0" y1="0" x2="0" y2="-40" stroke="black"
+            stroke-linecap="round" stroke-width="5" stroke-opacity="0.9">
+        <animateTransform attributeName="transform" type="rotate" dur="43200s" values="0;360"
+          repeatCount="indefinite" />
+          </line>
       </g>
+      <g id="minutes">
+        <line x1="0" y1="0" x2="0" y2="-60" stroke="#060608"
+          stroke-linecap="round" stroke-width="4" stroke-opacity="0.9">
+        <animateTransform attributeName="transform" type="rotate" dur="3600s" values="0;360"
+          repeatCount="indefinite" />
+          </line>
+      </g>
+      <g id="seconds">
+        <line x1="0" y1="0" x2="0" y2="-70" stroke="red"
+          stroke-linecap="round" stroke-width="2" stroke-opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" dur="60s" values="0;360" repeatDur="indefinite" />
+          </line>
+      </g>
+    </g>
   </g>
 
   <circle filter="url(#light)" cx="100" cy="100" r="4" style="fill:black; stroke:black" />
