@@ -49,37 +49,37 @@
     <text filter="url(#light)" y="-55">12</text>
   </g>
   <g filter="url(#raise2)">
-    <rect  filter="url(#light)" width="50" height="18" x="119" y="91" style="fill: #EEE" stroke="#EEE" stroke-width="2"
+    <rect  filter="url(#light)" width="50" height="18" x="119" y="91" fill="#EEE" stroke="#EEE" stroke-width="2"
       stroke-linejoin="round" />
-    <text filter="url(#raise2)" id="monthBox" x="149" y="105" text-anchor="end" style="fill: #444;" font-size="15"
+    <text filter="url(#raise2)" id="monthBox" x="149" y="105" text-anchor="end" fill="#444" font-size="15"
       font-family="'Gill Sans MT Light', 'Gill Sans', 'Century Gothic', sans-serif">
       Nov</text>
-    <text filter="url(#raise2)" id="dateBox" x="151" y="105" style="fill: #444;" font-size="15"
+    <text filter="url(#raise2)" id="dateBox" x="151" y="105" fill="#444" font-size="15"
       font-family="'Gill Sans MT Light', 'Gill Sans', 'Century Gothic', sans-serif">
       28</text>
   </g>
 
   <g filter="url(#raise)">
-    <g style="stroke-width:1;stroke:black;stroke-linecap:round">
-      <rect filter="url(#light)" x="100" y="20.5" width="1" height="6" />
-      <rect filter="url(#light)" x="173.5" y="100" height="1" width="6" />
-      <rect filter="url(#light)" x="100" y="173.5" width="1" height="6" />
-      <rect filter="url(#light)" x="20.5" y="100" height="1" width="6" />
+    <g>
+      <rect filter="url(#light)" x="99.25" y="20.5" width="1.5" height="6" />
+      <rect filter="url(#light)" x="173.5" y="99.25" height="1.5" width="6" />
+      <rect filter="url(#light)" x="99.25" y="173.5" width="1.5" height="6" />
+      <rect filter="url(#light)" x="20.5" y="99.25" height="1.5" width="6" />
     </g>
-    <g transform="rotate(30,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(30,100,100)">
       <circle filter="url(#light)" cx="100" cy="22" r="1" />
       <circle filter="url(#light)" cx="178" cy="100" r="1" />
       <circle filter="url(#light)" cx="100" cy="178" r="1" />
       <circle filter="url(#light)" cx="22" cy="100" r="1" />
     </g>
-    <g transform="rotate(60,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(60,100,100)">
       <circle filter="url(#light)" cx="100" cy="22" r="1" />
       <circle filter="url(#light)" cx="178" cy="100" r="1" />
       <circle filter="url(#light)" cx="100" cy="178" r="1" />
       <circle filter="url(#light)" cx="22" cy="100" r="1" />
     </g>
 
-    <g transform="rotate(6,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(6,100,100)">
       <g>
         <circle filter="url(#light)" cx="100" cy="22" r="0.5" />
         <circle filter="url(#light)" cx="178" cy="100" r="0.5" />
@@ -99,7 +99,7 @@
         <circle filter="url(#light)" cx="22" cy="100" r="0.5" />
       </g>
     </g>
-    <g transform="rotate(12,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(12,100,100)">
       <g>
         <circle filter="url(#light)" cx="100" cy="22" r="0.5" />
         <circle filter="url(#light)" cx="178" cy="100" r="0.5" />
@@ -119,7 +119,7 @@
         <circle filter="url(#light)" cx="22" cy="100" r="0.5" />
       </g>
     </g>
-    <g transform="rotate(18,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(18,100,100)">
       <g>
         <circle filter="url(#light)" cx="100" cy="22" r="0.5" />
         <circle filter="url(#light)" cx="178" cy="100" r="0.5" />
@@ -139,7 +139,7 @@
         <circle filter="url(#light)" cx="22" cy="100" r="0.5" />
       </g>
     </g>
-    <g transform="rotate(24,100,100)" style="fill:black; stroke:black">
+    <g transform="rotate(24,100,100)">
       <g>
         <circle filter="url(#light)" cx="100" cy="22" r="0.5" />
         <circle filter="url(#light)" cx="178" cy="100" r="0.5" />
@@ -165,29 +165,29 @@
     <rect x="0" y="0" width="200" height="200" fill="none" stroke="none" />
     <g transform="translate(100,100)">
       <g id="hours">
-        <line x1="0" y1="0" x2="0" y2="-40" stroke="black"
-            stroke-linecap="round" stroke-width="5" stroke-opacity="0.9">
+        <rect x="-0.05" y="-40" width="0.1" height="40" stroke="black" fill="none"
+            stroke-linejoin="round" stroke-width="5" stroke-opacity="0.8">
         <animateTransform attributeName="transform" type="rotate" dur="43200s" values="0;360"
           repeatCount="indefinite" />
-          </line>
+          </rect>
       </g>
       <g id="minutes">
-        <line x1="0" y1="0" x2="0" y2="-60" stroke="#060608"
-          stroke-linecap="round" stroke-width="4" stroke-opacity="0.9">
+        <rect x="-0.05" y="-60" width="0.1" height="60" stroke="#070708" fill="none"
+          stroke-linejoin="round" stroke-width="4" stroke-opacity="0.8">
         <animateTransform attributeName="transform" type="rotate" dur="3600s" values="0;360"
           repeatCount="indefinite" />
-          </line>
+          </rect>
       </g>
       <g id="seconds">
-        <line x1="0" y1="0" x2="0" y2="-70" stroke="red"
-          stroke-linecap="round" stroke-width="2" stroke-opacity="0.9">
+        <rect x="-0.05" y="-70" width="0.1" height="70" stroke="red" fill="none"
+          stroke-linejoin="round" stroke-width="2" stroke-opacity="0.8">
           <animateTransform attributeName="transform" type="rotate" dur="60s" values="0;360" repeatDur="indefinite" />
-          </line>
+          </rect>
       </g>
     </g>
   </g>
 
-  <circle filter="url(#light)" cx="100" cy="100" r="4" style="fill:black; stroke:black" />
+  <circle filter="url(#light)" cx="100" cy="100" r="4" fill="black" stroke="black" />
 
   <script>
     // <![CDATA[
