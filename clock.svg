@@ -185,7 +185,7 @@
       </g>
     </g>
     <circle cx="100" cy="100" r="4" fill="black" stroke="black" />
-    <circle filter="url(#light)" cx="100" cy="100" r="90" fill="#F00" fill-opacity="0.3" stroke="none" />
+    <circle filter="url(#light)" cx="100" cy="100" r="90" fill="#F00" fill-opacity="0.2" stroke="none" />
   </g>
 
 
