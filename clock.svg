@@ -35,18 +35,18 @@
 
   <g filter="url(#raise)" font-size="17" font-family="'Gill Sans MT', 'Gill Sans', 'Century Gothic', sans-serif"
     font-weight="" fill="black" style="text-anchor: middle;" transform="translate(100,100)">
-    <g transform="rotate(30)"><text y="-55">1</text></g>
-    <g transform="rotate(60)"><text y="-55">2</text></g>
+    <g transform="rotate(30),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(330)">1</text></g>
+    <g transform="rotate(60),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(300)">2</text></g>
     <!-- <g transform="rotate(90)" ><text y="-55">3</text></g> -->
-    <g transform="rotate(300)"><text y="68">4</text></g>
-    <g transform="rotate(330)"><text y="68">5</text></g>
-    <text y="68">6</text>
-    <g transform="rotate(30)"><text y="68">7</text></g>
-    <g transform="rotate(60)"><text y="68">8</text></g>
-    <g transform="rotate(270)"><text y="-55">9</text></g>
-    <g transform="rotate(300)"><text y="-55">10</text></g>
-    <g transform="rotate(330)"><text y="-55">11</text></g>
-    <text y="-55">12</text>
+    <g transform="rotate(120),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(240)">4</text></g>
+    <g transform="rotate(150),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(210)">5</text></g>
+    <g transform="rotate(180),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(180)">6</text></g>
+    <g transform="rotate(210),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(150)">7</text></g>
+    <g transform="rotate(240),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(120)">8</text></g>
+    <g transform="rotate(270),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(90)">9</text></g>
+    <g transform="rotate(300),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(60)">10</text></g>
+    <g transform="rotate(330),translate(0,-62)"><text dominant-baseline="central" text-anchor="middle" transform="rotate(30)">11</text></g>
+    <g transform="translate(0,-62)"><text dominant-baseline="central" text-anchor="middle">12</text></g>
   </g>
   <g filter="url(#raise2)">
     <rect  width="50" height="18" x="119" y="91" fill="#EEE" stroke="#EEE" stroke-width="2"
