@@ -6,7 +6,7 @@ https://www.osaelectronics.com/learn/setting-up-raspberry-pi-for-midi/
 
 ## Remove baud setting from boot command
 
-`sudo nano /boot/cmdline.txt`
+`sudo nano /boot/firmware/cmdline.txt`
 
 Remove `console=serial0,115200`
 
@@ -14,7 +14,7 @@ https://youtu.be/RbdNczYovHQ?t=304
 
 ## Add kernel overlays to config.txt
 
-`sudo nano /boot/config.txt`
+`sudo nano /boot/firmware/config.txt`
 
 Add:
 ```
