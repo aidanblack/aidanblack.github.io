@@ -65,12 +65,12 @@ Description=Run ttymidi as a background service
 After=network-online.target
 
 [Service]
-ExecStart=/bin/bash /home/aidan/ttymidi.sh
-WorkingDirectory=/home/aidan/
+ExecStart=/bin/bash /<path to shell script>/ttymidi.sh
+WorkingDirectory=/home/<path to shell script>/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-User=aidan
+User=<username>
 
 [Install]
 WantedBy=multi-user.target
